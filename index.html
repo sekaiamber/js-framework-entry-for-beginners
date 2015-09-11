@@ -6,10 +6,12 @@
     <title>javascript framework entry for beginners | by sekaiamber</title>
     <meta name="author" content="sekaiamber(Xu Xiaomeng)" />
     <link href="styles/g.css" rel="stylesheet" />
+    <link href="styles/fairy-step.css" rel="stylesheet" />
+    <link href="styles/google/prettify.css" rel="stylesheet" />
     <script src="scripts/fairy.min.js"></script>
     <script src="scripts/fairy.maker.js"></script>
-    <!-- In fact, we do not need jQuery, here just to show, fairy.js can work well with jQuery :) -->
     <script src="scripts/jquery-1.11.1.min.js"></script>
+    <script src="scripts/google/prettify.js"></script>
 <!--
     ==TODO==
     <link rel="shortcut icon" href="favicon.png" />
@@ -18,7 +20,30 @@
 <body>
 
     <div id="fairy">
-        <div class="fairy-step front front1" step-index="1">请使用←和→来控制</div>
+        <div class="fairy-step title p1" step-index="1">
+            <div class="title-text">javascript及其框架入门</div>
+            <div>Xu Xiaomeng</div>
+            <div>Baozou Technology</div>
+        </div>
+        <div class="fairy-step title p2" step-index="2">
+            <pre>首先，我们来消除几个误区，以下是真理，请记住：</pre>
+            <pre class="code-pre">
+                <code class="prettyprint lang-javascript">
+console.log(javascript == Java || a language similar to Java || closely related to Java)
+// false
+console.log(javascript == jQuery)
+// false
+console.log(typeof jQuery == 'javascript framework')
+// true
+console.log(jQuery === javascriptFramework)
+// false
+                </code>
+            </pre>
+        </div>
+
+        <div class="fairy-step ch1 p1" step-index="100">
+
+        </div>
 <!--         <div class="fairy-step overview" step-index="17" id="overview">
             <div>
                 <div><span class="logo">fairy.js</span></div>
@@ -28,20 +53,23 @@
 
     </div>
     <script>
+        prettyPrint();
         fairy('init', {
             perspective: 1000,
             transitionDuration: 1000,
             events: {
                 change: function(dom, index) {
-                    // $(".fairy-step").removeClass('show');
-                    // if (index < 6) {
-                    //     $(".fairy-step.front").addClass('show');
-                    // } else if (index < 17) {
-                    //     $(".fairy-step.board").addClass('show');
-                    //     $(".fairy-step.text").addClass('show');
-                    // } else if (index == 17) {
-                    //     $("#overview").addClass('show');
-                    // };
+                    $(".fairy-step").removeClass('show');
+                    if (index < 100) {
+                        $(".fairy-step.title.p1").addClass('show');
+                    } else if (index < 100) {
+                        $(".fairy-step.title").addClass('show');
+                        $(".fairy-step.title.p1").removeClass('show');
+                    } else if (index < 200) {
+                        $(".fairy-step.ch1").addClass('show');
+                    } else if (index < 300) {
+                        $(".fairy-step.ch2").addClass('show');
+                    };
                     // $(".fairy-step.text.text5").removeClass('show');
                 }
             }

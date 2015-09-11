@@ -1,0 +1,37 @@
+.title
+{
+    width: 800px;
+    text-align: center;
+    padding: 20px;
+    height: 450px;
+    -webkit-transform: translate3d(0,0,2000px);
+    -moz-transform: translate3d(0,0,2000px);
+    -ms-transform: translate3d(0,0,2000px);
+    -o-transform: translate3d(0,0,2000px);
+    transform: translate3d(0,0,2000px);
+}
+.title.p1
+{
+    font-size: 30px;
+}
+.title.p1 .title-text
+{
+    font-size: 60px;
+    margin: 20px 0;
+}
+.title.p2
+{
+    -webkit-transform: translate3d(0,0,1000px);
+    -moz-transform: translate3d(0,0,1000px);
+    -ms-transform: translate3d(0,0,1000px);
+    -o-transform: translate3d(0,0,1000px);
+    transform: translate3d(0,0,1000px);
+}
+
+/* ch1 */
+.ch1
+{
+    height: 600px;
+    width: 800px;
+    
+}
