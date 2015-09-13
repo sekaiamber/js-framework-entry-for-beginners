@@ -82,9 +82,9 @@
             this._.init.call(this, opts);
 
             helper.log('disable transition.');
-            var transitionCss = helper.getSpecificCss('transition', '');
-            this.canvas.css(transitionCss);
-            this.camera.css(transitionCss);
+            // var transitionCss = helper.getSpecificCss('transition', '');
+            // this.canvas.css(transitionCss);
+            // this.camera.css(transitionCss);
 
             this._initMakerData(opts);
 

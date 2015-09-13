@@ -6,7 +6,7 @@
     <title>javascript framework entry for beginners | by sekaiamber</title>
     <meta name="author" content="sekaiamber(Xu Xiaomeng)" />
     <link href="styles/g.css" rel="stylesheet" />
-    <link href="styles/fairy-step.css" rel="stylesheet" />
+    <link href="styles/fairy.css" rel="stylesheet" />
     <link href="styles/google/prettify.css" rel="stylesheet" />
     <script src="scripts/fairy.min.js"></script>
     <script src="scripts/fairy.maker.js"></script>
@@ -41,8 +41,41 @@ console.log(jQuery === javascriptFramework)
             </pre>
         </div>
 
+        <div class="fairy-element ch1 hline">
+            <img src="images/history.png">
+        </div>
         <div class="fairy-step ch1 p1" step-index="100">
-
+            JavaScript 发布<br>Netscape 2.0
+        </div>
+        <div class="fairy-step ch1 p2" step-index="101">
+            ES标准提交<br>Microsoft发布IE3<br>及JScript
+        </div>
+        <div class="fairy-step ch1 p3" step-index="102">
+            ES 1.0标准发布
+        </div>
+        <div class="fairy-step ch1 p4" step-index="103">
+            ES 3.0标准发布
+        </div>
+        <div class="fairy-step ch1 p5" step-index="104">
+            Firefox 1.0发布<br>Dojo立项
+        </div>
+        <div class="fairy-step ch1 p6" step-index="105">
+            Ajax概念提出<br>prototype 1.0发布<br>prototype王朝
+        </div>
+        <div class="fairy-step ch1 p7" step-index="106">
+            jQuery 1.0发布
+        </div>
+        <div class="fairy-step ch1 p8" step-index="107,109,111">
+            Chrome 1.0发布<br>搭载V8引擎<br>jQuery 1.1.3发布<br>jQuery纪元
+        </div>
+        <div class="fairy-step ch1 p9 not-always-show" step-index="108">
+            <img src="images/browers.png">
+        </div>
+        <div class="fairy-step ch1 p9 not-always-show" step-index="110">
+            <img src="images/jquery113.png">
+        </div>
+        <div class="fairy-step ch1 p10" step-index="112">
+            ES 5.0标准发布<br>Node.js发布<br>jQuery 1.3发布<br>jQuery一统天下
         </div>
 <!--         <div class="fairy-step overview" step-index="17" id="overview">
             <div>
@@ -60,17 +93,19 @@ console.log(jQuery === javascriptFramework)
             events: {
                 change: function(dom, index) {
                     $(".fairy-step").removeClass('show');
-                    if (index < 100) {
+                    $(".fairy-element").removeClass('show');
+                    if (index < 2) {
                         $(".fairy-step.title.p1").addClass('show');
                     } else if (index < 100) {
                         $(".fairy-step.title").addClass('show');
                         $(".fairy-step.title.p1").removeClass('show');
                     } else if (index < 200) {
                         $(".fairy-step.ch1").addClass('show');
+                        $(".fairy-element.ch1").addClass('show');
                     } else if (index < 300) {
                         $(".fairy-step.ch2").addClass('show');
                     };
-                    // $(".fairy-step.text.text5").removeClass('show');
+                    $(".fairy-step.not-always-show").removeClass('show');
                 }
             }
         })('start');
