@@ -40,6 +40,7 @@ body
 
 pre.code-pre
 {
+    font-size: 18px;
     text-align: left;
     border: gray solid 1px;
     padding: 0 20px;
