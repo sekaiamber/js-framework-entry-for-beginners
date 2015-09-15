@@ -196,6 +196,48 @@
     -o-transform: translate3d(2600px,600px,0) rotateZ(90deg);
     transform: translate3d(2600px,600px,0) rotateZ(90deg);
 }
+.ch1.p15 ul
+{
+    list-style-type: none;
+    text-align: left;
+    font-size: 20px;
+    margin: 18px 0;
+    padding: 0 0 0 30px;
+}
+.ch1.p15 li
+{
+    margin: 5px 0;
+    cursor: pointer;
+}
+.ch1.p15 li.active:before,
+.ch1.p15 li.hover:before
+{
+    background: rgb(0,138,255);
+    content: 'a';
+    margin-right: 10px;
+}
+.ch1.p15 .p15-p2,
+.ch1.p15 .p15-p3
+{
+    float: left;
+}
+.ch1.p15 .p15-p2
+{
+    width: 35%;
+}
+.ch1.p15 .p15-p3
+{
+    width: 65%;
+    height: 100%;
+}
+.ch1.p15 .p15-p3 .code-pre
+{
+    display: none;
+}
+.ch1.p15 .p15-p3 .code-pre.show
+{
+    display: block;
+}
 .ch1.hline
 {
     width: 6000px;

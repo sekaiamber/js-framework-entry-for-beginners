@@ -12,6 +12,7 @@
     <script src="scripts/fairy.maker.js"></script>
     <script src="scripts/jquery-1.11.1.min.js"></script>
     <script src="scripts/google/prettify.js"></script>
+    <script src="scripts/g.js"></script>
 <!--
     ==TODO==
     <link rel="shortcut icon" href="favicon.png" />
@@ -173,22 +174,127 @@ dojo.require("dijit.layout.TabContainer");
         </div>
         <div class="fairy-step ch1 p15" step-index="118">
             Javascript框架都做了点什么？
-            <ul>
-                <li>DOM操作</li>
-                <li>语言扩展</li>
-                <li>浏览器功能修正</li>
-                <li>Ajax支持</li>
-                <li>选择器</li>
-                <li>浏览器嗅探(*)和特性侦测</li>
-                <li>事件代理</li>
-                <li>数据缓存</li>
-                <li>动画引擎</li>
-                <li>某种扩展或增强方式</li>
-                <li>异步执行解决方案</li>
-                <li>类工厂(*)</li>
-                <li>兼容性</li>
-                <li>...</li>
-            </ul>
+            <div class="p15-p1">
+                <div class="p15-p2">
+                    <ul>
+                        <li di="1" class="active">DOM操作</li>
+                        <li di="2">语言扩展</li>
+                        <li di="3">浏览器功能修正及扩展</li>
+                        <li di="4">Ajax支持</li>
+                        <li di="5">选择器</li>
+                        <li di="6">浏览器嗅探(*)和特性侦测</li>
+                        <li di="7">事件代理</li>
+                        <li di="8">数据缓存</li>
+                        <li di="9">动画引擎</li>
+                        <li di="10">某种扩展或增强方式</li>
+                        <li di="11">异步执行解决方案</li>
+                        <li di="12">类工厂(*)</li>
+                        <li di="13">兼容性</li>
+                    </ul>
+                </div>
+                <div class="p15-p3">
+<pre class="code-pre show" di="1"><code class="prettyprint lang-javascript">
+// 节点操作（创建、插入、复制、移除、内容操作）
+// 样式操作、属性操作（包括class）
+
+// jquery
+$('#foo').html('hello');
+$('#foo').attr('bar', 'bar');
+// dojo
+dojo.addClass(dojo.query('#foo')[0], 'bar');
+// mootools
+$$('.foo');
+$('foo').inject($('myDiv1'), 'before');
+</code>
+</pre>
+<pre class="code-pre" di="2"><code class="prettyprint lang-javascript">
+// 各种基础类型功能扩展
+// 数组化
+// 类型判定（isXXX）
+
+// jquery
+$.trim('  foo  '); // 'foo'
+// Prototype
+Date().toISOString();
+// mootools
+'baozoumanhua'.contains('baozou'); // true
+var args = $A(arguments);
+// EXT
+Ext.isIterable(array);
+</code>
+</pre>
+<pre class="code-pre" di="3"><code class="prettyprint lang-javascript">
+// 基础类型原生函数的修复和扩展（尤其是string）
+
+// Prototype
+'index.html?a=foo&b=bar'.parseQuery() // {a:'foo', b:'bar'}
+// gsub\sub\scan，ruby程序员是不是很熟悉 :)
+'change space to comma'.gsub(/\s+/, ',');
+// mootools
+[255, 0, 0].rgbToHex(); // '#ff0000'
+[255, 0, 0, 0].rgbToHex(); // 'transparent'
+// Prototype
+var sum = function(x, y, z) { return x + y + z; }
+sum = sum.curry();
+sum = sum(1)(2); // nothing happend
+sum(3); // 6
+</code>
+</pre>
+<pre class="code-pre" di="4"><code class="prettyprint lang-javascript">
+// jquery
+$.ajax({
+    url : 'foo?q=bar'
+}).done(function(data){
+    console.log(data);
+});
+$.getJSON("ajax/test.json", function( data ) {
+    console.log(data);
+});
+</code>
+</pre>
+<pre class="code-pre" di="5"><code class="prettyprint lang-javascript">
+// jquery
+$('...')
+// mootools
+$('id');
+$$('selector');
+// dojo
+dojo.query('#foo');
+</code>
+</pre>
+<pre class="code-pre" di="6"><code class="prettyprint lang-javascript">
+// 浏览器判断
+// 事件及样式支持
+// jquery
+$.support
+// jquery &lt; 1.9
+$.browser
+// CSS.supports
+</code>
+</pre>
+<pre class="code-pre" di="7"><code class="prettyprint lang-javascript">
+</code>
+</pre>
+<pre class="code-pre" di="8"><code class="prettyprint lang-javascript">
+</code>
+</pre>
+<pre class="code-pre" di="9"><code class="prettyprint lang-javascript">
+</code>
+</pre>
+<pre class="code-pre" di="10"><code class="prettyprint lang-javascript">
+</code>
+</pre>
+<pre class="code-pre" di="11"><code class="prettyprint lang-javascript">
+</code>
+</pre>
+<pre class="code-pre" di="12"><code class="prettyprint lang-javascript">
+</code>
+</pre>
+<pre class="code-pre" di="13"><code class="prettyprint lang-javascript">
+</code>
+</pre>
+                </div>
+            </div>
         </div>
 <!--         <div class="fairy-step overview" step-index="17" id="overview">
             <div>
