@@ -48,3 +48,9 @@ pre.code-pre
     background: #eee;
     word-wrap: break-word;
 }
+
+pre.code-pre:after
+{
+    content: '\A';
+    white-space: pre;
+}

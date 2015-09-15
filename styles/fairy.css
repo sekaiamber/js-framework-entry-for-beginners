@@ -124,7 +124,8 @@
 .ch1.p11,
 .ch1.p12,
 .ch1.p13,
-.ch1.p14
+.ch1.p14,
+.ch1.p15
 {
     width: 800px;
     height: 600px;   
@@ -186,6 +187,14 @@
     -ms-transform: translate3d(3300px,600px,0) rotateZ(90deg);
     -o-transform: translate3d(3300px,600px,0) rotateZ(90deg);
     transform: translate3d(3300px,600px,0) rotateZ(90deg);
+}
+.ch1.p15
+{
+    -webkit-transform: translate3d(2600px,600px,0) rotateZ(90deg);
+    -moz-transform: translate3d(2600px,600px,0) rotateZ(90deg);
+    -ms-transform: translate3d(2600px,600px,0) rotateZ(90deg);
+    -o-transform: translate3d(2600px,600px,0) rotateZ(90deg);
+    transform: translate3d(2600px,600px,0) rotateZ(90deg);
 }
 .ch1.hline
 {

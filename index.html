@@ -21,14 +21,15 @@
 
     <div id="fairy">
         <div class="fairy-step title p1" step-index="1">
-            <div class="title-text">javascript及其框架入门</div>
+            <div class="title-text">了不起的javascript</div>
+            <div>-- js库与框架浅说 --</div>
+            <br><br>
             <div>Xu Xiaomeng</div>
             <div>Baozou Technology</div>
         </div>
         <div class="fairy-step title p2" step-index="2">
             <pre>首先，我们来消除几个误区，以下是真理，请记住：</pre>
-            <pre class="code-pre">
-                <code class="prettyprint lang-javascript">
+<pre class="code-pre"><code class="prettyprint lang-javascript">
 console.log(javascript == Java || a language similar to Java || closely related to Java)
 // false
 console.log(javascript == jQuery)
@@ -37,8 +38,8 @@ console.log(typeof jQuery == 'javascript framework')
 // true
 console.log(jQuery === javascriptFramework)
 // false
-                </code>
-            </pre>
+</code>
+</pre>
         </div>
 
         <div class="fairy-element ch1 hline">
@@ -91,7 +92,7 @@ console.log(jQuery === javascriptFramework)
                 <div class="p12-p2">
                     <div>库越来越参与规则制定：</div>
                     <pre class="code-pre">
-                        <code class="prettyprint lang-javascript">
+<code class="prettyprint lang-javascript">
 // velocity.js
 $('#foo').velocity({
     width : '100px',
@@ -101,13 +102,12 @@ $('#foo').velocity({
 fairy('init', {
     transitionDuration : 1000
 })('start');
-                        </code>
-                    </pre>
+</code>
+</pre>
                 </div>
                 <div class="p12-p2">
                     <div>框架越来越趋于工具化：</div>
-                        <pre class="code-pre">
-                        <code class="prettyprint lang-javascript">
+<pre class="code-pre"><code class="prettyprint lang-javascript">
 // jQuery
 jQuery.noConflict();  
 (function($) {
@@ -115,8 +115,8 @@ jQuery.noConflict();
         // some code using `$`
     });
 })(jQuery);
-                        </code>
-                    </pre>
+</code>
+</pre>
                 </div>
             </div>
         </div>
@@ -124,15 +124,13 @@ jQuery.noConflict();
             Javascript框架分类（架构、核心思想）
             <ol>
                 <li>命名空间导向，Java风格，`new`，如YUI、EXT
-                    <pre class="code-pre">
-                        <code class="prettyprint lang-javascript">
+<pre class="code-pre"><code class="prettyprint lang-javascript">
 Ext.MessageBox.alert("Example", "using namespace.");
-                        </code>
-                    </pre>
+</code>
+</pre>
                 </li>
                 <li>类工厂导向，工厂模式，如Prototype、mootools
-                    <pre class="code-pre">
-                        <code class="prettyprint lang-javascript">
+<pre class="code-pre"><code class="prettyprint lang-javascript">
 var Animal = new Class({
     initialize: function(name){
         this.name = name;
@@ -145,35 +143,52 @@ var Cat = new Class({
     }
 });
 var pet = new Cat('Tom');
-                        </code>
-                    </pre>
+</code>
+</pre>
                 </li>
             </ol>
         </div>
         <div class="fairy-step ch1 p14" step-index="117">
             <ol start="3">
                 <li>选择器导向，如jQuery
-                    <pre class="code-pre">
-                        <code class="prettyprint lang-javascript">
+<pre class="code-pre"><code class="prettyprint lang-javascript">
 $('#foo').addClass('bar');
 $.ajax({
     url : 'you-path'
 });
 $('#foo').plugin();
-                        </code>
-                    </pre>
+</code>
+</pre>
                 </li>
                 <li>加载器导向，模块化，如Dojo、YUI
-                    <pre class="code-pre">
-                        <code class="prettyprint lang-javascript">
+<pre class="code-pre"><code class="prettyprint lang-javascript">
 dojo.require("dojo.parser");
 dojo.require("dijit.layout.ContentPane");
 dojo.require("dijit.layout.TabContainer");
-                        </code>
-                    </pre>
+</code>
+</pre>
                 </li>
                 <li>架构导向，MV*，如Angular、backbone.js</li>
             </ol>
+        </div>
+        <div class="fairy-step ch1 p15" step-index="118">
+            Javascript框架都做了点什么？
+            <ul>
+                <li>DOM操作</li>
+                <li>语言扩展</li>
+                <li>浏览器功能修正</li>
+                <li>Ajax支持</li>
+                <li>选择器</li>
+                <li>浏览器嗅探(*)和特性侦测</li>
+                <li>事件代理</li>
+                <li>数据缓存</li>
+                <li>动画引擎</li>
+                <li>某种扩展或增强方式</li>
+                <li>异步执行解决方案</li>
+                <li>类工厂(*)</li>
+                <li>兼容性</li>
+                <li>...</li>
+            </ul>
         </div>
 <!--         <div class="fairy-step overview" step-index="17" id="overview">
             <div>
