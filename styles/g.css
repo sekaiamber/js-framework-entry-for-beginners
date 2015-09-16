@@ -54,3 +54,8 @@ pre.code-pre:after
     content: '\A';
     white-space: pre;
 }
+
+pre.code-pre .high-light
+{
+    background: rgb(255, 211, 219);
+}

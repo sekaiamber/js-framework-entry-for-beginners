@@ -9,14 +9,10 @@
     <link href="styles/fairy.css" rel="stylesheet" />
     <link href="styles/google/prettify.css" rel="stylesheet" />
     <script src="scripts/fairy.min.js"></script>
-    <script src="scripts/fairy.maker.js"></script>
+<!-- <script src="scripts/fairy.maker.js"></script> -->
     <script src="scripts/jquery-1.11.1.min.js"></script>
     <script src="scripts/google/prettify.js"></script>
     <script src="scripts/g.js"></script>
-<!--
-    ==TODO==
-    <link rel="shortcut icon" href="favicon.png" />
--->
 </head>
 <body>
 
@@ -42,6 +38,8 @@ console.log(jQuery === javascriptFramework)
 </code>
 </pre>
         </div>
+
+<!-- CH1  -->
 
         <div class="fairy-element ch1 hline">
             <img src="images/history.png">
@@ -172,7 +170,7 @@ dojo.require("dijit.layout.TabContainer");
                 <li>架构导向，MV*，如Angular、backbone.js</li>
             </ol>
         </div>
-        <div class="fairy-step ch1 p15" step-index="118">
+        <div class="fairy-step ch1 p15" step-index="118,120">
             Javascript框架都做了点什么？
             <div class="p15-p1">
                 <div class="p15-p2">
@@ -273,36 +271,329 @@ $.browser
 </code>
 </pre>
 <pre class="code-pre" di="7"><code class="prettyprint lang-javascript">
+// 自从Ajax发明开始及其重要的一个环节
+// 对于频繁更新的DOM元素，或者海量DOM元素的事件绑定的解决方案
+// 解决更新节点后事件绑定及性能问题
+// 核心思想delegate，C#程序员头顶青天 :)
+
+// jquery, jquery &lt; 1.7 use `.delegate()`
+$('#parent').on('click', '.child', function(){
+    console.log($(this).html());
+});
+
+// dojo
+require(['dojo/query','dojox/NodeList/delegate'],
+    function(query,delegate){
+        // here use query and delegate module
+        query('#p').delegate('a', 'onclick', function(event) {
+            // 'this.node' is the node that was clicked
+            console.log('you clicked a link!', this);
+        });
+    }
+)
 </code>
 </pre>
 <pre class="code-pre" di="8"><code class="prettyprint lang-javascript">
+// 解决循环引用问题
+// data-*属性效果有限
+// 长期任务，只能说weakMap大法好
+
+// jquery
+$('#foo').data({
+    bra : 'bar'
+});
+
+// 简单来说jquery使用两个数组来模拟一个weakMap
+// 第一代缓存系统使用jquery.uuid来充当映射关系
+// 第二代抛弃了uuid，使用管理uuid使用次数来充当数组的index来做映射关系
 </code>
 </pre>
 <pre class="code-pre" di="9"><code class="prettyprint lang-javascript">
+// 除非你的框架非常屌，社区力量足够贡献一个优秀的动画插件
+// 不然大多数的js框架都选择自己实现一个
+// 动画或者动效是当前扁平化浪潮中区分品牌的一大利器
+
+// jquery
+$("#foo").animate({
+    opacity: 0.25,
+    left: "+=50",
+    height: "toggle"
+}, 5000, function() {
+    // Animation complete.
+});
 </code>
 </pre>
 <pre class="code-pre" di="10"><code class="prettyprint lang-javascript">
+// 几乎所有框架都支持扩展或者插件
+
+// jquery
+$('#foo').plugin(...);
+$.plugin(...);
+
+// dojo
+dojo.require('dijit.form.FilteringSelect');
+
+// mootools
+var CP = new ColorPicker(element);
 </code>
 </pre>
 <pre class="code-pre" di="11"><code class="prettyprint lang-javascript">
+// 使用Promise, Deferred等手段解决"callback hell"，对于程序本身这些概念并没有什么卵用，然而读代码的不只有计算机还有人类，所以意义重大
+
+// jquery &lt; 1.5
+// jquery.ajax return XHR object
+$.ajax({
+    url: "test.html",
+    success: function(){
+        alert("success");
+    },
+    error:function(){
+        alert("error");
+    }
+});
+
+// jquery &gt; 1.5
+// jquery.ajax return deferred object
+$.ajax('test.html')
+.done(function(){ alert("success"); })
+.fail(function(){ alert("error"); })
 </code>
 </pre>
 <pre class="code-pre" di="12"><code class="prettyprint lang-javascript">
+// OO对于传统javascript的冲击
+// 强烈推荐def.js
+
+// def.js
+def("Person") ({
+    init: function(name){
+        this.name = name;
+    }
+});
+
+def ("Ninja") &lt;&lt; Person ({
+    init: function(name){
+        __super__(name);
+    },
+    kick: function(){
+        this.speak("I kick u!");
+    }
+});
+
+var ninjy = new Ninja("JDD");
+ninjy.kick();
 </code>
 </pre>
 <pre class="code-pre" di="13"><code class="prettyprint lang-javascript">
+// 历史证明，非污染型框架才是王道
+
+// jquery
+jQuery.noConflict();  
+(function($) {
+    $(function() {
+        // some code using `$`
+    });
+})(jQuery);
 </code>
 </pre>
                 </div>
             </div>
         </div>
-<!--         <div class="fairy-step overview" step-index="17" id="overview">
-            <div>
-                <div><span class="logo">fairy.js</span></div>
-                <div><button id="replay">Replay</button></div>
-            </div>
-        </div> -->
+        <div class="fairy-step ch1 p16 not-always-show" step-index="119">
+            <img src="images/eventDelegate.jpg">
+        </div>
 
+<!-- CH2  -->
+
+        <div class="fairy-step ch2 p1 " step-index="200">
+            <h2>jQuery核心架构模块详解</h2>
+            <div>参考源码core.js, core/init.js</div>
+        </div>
+        <div class="fairy-step ch2 p2 " step-index="201">
+<pre class="code-pre"><code class="prettyprint lang-javascript">
+// 万物始于function
+// jQuery发掘了无`new`实例化，其实就是个封装
+
+ajQuery = function (selector, context) {
+    // here use `new`, call jQuery.init
+    return new ajQuery.init(selector, context)
+};
+
+ajQuery.init = function(selector, context) {
+    this.ajQuery = true;
+    this.selector = selector;
+};
+
+window.$ = ajQuery;
+
+// ----
+
+var a = $('#foo');
+console.log(a.selector); // '#foo'
+</code>
+</pre>
+        </div>
+        <div class="fairy-step ch2 p3 " step-index="202">
+<pre class="code-pre"><code class="prettyprint lang-javascript">
+// jQuery对象实质上一个"arraylike object"
+// 对于jQuery DOM object数组的操作遵循"get first, set all"的原则
+// 这意味着$(".foo").css('width')获取的是第一个元素的"width"值
+// 而$(".foo").css('width', '100px')则会设置所有元素的"width"值
+
+ajQuery = function (selector, context) {
+    return new ajQuery.init(selector, context)
+};
+
+ajQuery.init = function(selector, context) {
+<div class="high-light">    return ajQuery.makeArray( selector, this );</div>};
+
+<div class="high-light">ajQuery.makeArray = function (selector, aj) {
+    // body...
+    aj.ajQuery = true;
+    aj.selector = selector;
+    return aj;
+};</div></code>
+</pre>
+        </div>
+        <div class="fairy-step ch2 p4 " step-index="203">
+            "get first, set all"的思路非常正确。<br><br>这使得jQuery DOM object的api只要适用于本身的arraylike对象即可，因为单独的元素就是一个元素为1的数组，不需要区分DOM元素与DOM元素组。<br><br>所以jQuery只需要对jQuery本身以及jQuery DOM object这个arraylike对象进行扩展。<br><br>这时候，jQuery使用了极其巧妙的手段来达到这个目的：引入jQuery.fn，并且规定，所有jQuery上的函数均为jQuery本身的扩展，所有jQuery.fn上的函数为jQuery DOM object的扩展。<br><br>也就是说所有jQuery上的函数均能用$.func()调用，所有jQuery.fn上的函数均能通过$('#foo').func()调用。
+        </div>
+        <div class="fairy-step ch2 p5 " step-index="204">
+<pre class="code-pre"><code class="prettyprint lang-javascript">
+ajQuery = function (selector, context) {
+<div class="high-light">    return new ajQuery.fn.init(selector, context)</div>};
+
+// here is the instance member
+<div class="high-light">ajQuery.fn = ajQuery.prototype = {
+    constructor: ajQuery,
+    foo: 'foo',
+    bar: function() {
+        console.log('hello jQuery :)');
+    }
+};</div>
+<div class="high-light">ajQuery.fn.init = function(selector, context) {</div>    return ajQuery.makeArray( selector, this );
+};
+
+<div class="high-light">ajQuery.fn.init.prototype = ajQuery.fn;</div>
+// here is the jQuery's member
+ajQuery.makeArray = function (selector, aj) {
+    // body...
+    aj.ajQuery = true;
+    aj.selector = selector;
+    return aj;
+};
+</code>
+</pre>
+        </div>
+        <div class="fairy-step ch2 p6 " step-index="205">
+<pre class="code-pre"><code class="prettyprint lang-javascript">
+ajQuery = function (selector, context) {
+    return new ajQuery.fn.init(selector, context)
+};
+
+// here is the instance member
+ajQuery.fn = ajQuery.prototype = {
+    constructor: ajQuery,
+    foo: 'foo',
+    bar: function() {
+        console.log('hello jQuery :)');
+    }
+}
+
+ajQuery.fn.init = function(selector, context) {
+    return ajQuery.makeArray( selector, this );
+};
+
+ajQuery.fn.init.prototype = ajQuery.fn;
+
+// here is the jQuery's member
+ajQuery.makeArray = function (selector, aj) {
+    // body...
+    aj.ajQuery = true;
+    aj.selector = selector;
+    return aj;
+};
+
+<div class="high-light">// extend function v1:
+// ajQuery.fn.extend: add member to instance
+// ajQuery.extend: add member to ajQuery itself
+ajQuery.extend = ajQuery.fn.extend = function() {
+    var target = this;
+    var ext = arguments[0];
+    for(key in ext) {
+        target[key] = ext[key];
+    }
+    return target;
+};</div></code>
+</pre>
+        </div>
+        <div class="fairy-step ch2 p7 " step-index="206">
+<pre class="code-pre"><code class="prettyprint lang-javascript">
+ajQuery.extend({
+    bar2 : function() { return 'bar2'; },
+    foo2 : 'foo2'
+});
+
+// ----
+
+$.bar2(); // 'bar2'
+$.foo2; // 'foo2'
+
+// ----
+
+ajQuery.fn.extend({
+    bar3 : function() { return 'bar3'; },
+    foo3 : 'foo3'
+});
+
+// ----
+
+var a = $('.foo');
+a.bar3(); // 'bra3'
+a.foo3; // 'foo3'
+a.bar2(); // error: undefined is not a function
+a.foo2; // undefiend
+</code>
+</pre>
+        </div>
+        <div class="fairy-step ch2 p8 " step-index="207">
+<pre class="code-pre"><code class="prettyprint lang-javascript">
+// extend function v2:
+// ajQuery.fn.extend: add member to instance
+// ajQuery.extend: add member to ajQuery itself
+// if more then 2 args, merge other objects into the first one
+ajQuery.extend = ajQuery.fn.extend = function() {
+    var target = arguments[0];
+    var i = 1;
+    if (i == arguments.length) {
+        target = this;
+        i--;
+    };
+    for (; i &lt; arguments.length; i++) {
+        for(key in arguments[i]) {
+            target[key] = arguments[i][key];
+        }
+    };
+    return target;
+};
+
+// ----
+
+var a = { foo1 : 'foo1' };
+$.extend(a, {
+    foo2 : 'foo2'
+}, {
+    foo3 : 'foo3'
+});
+
+console.log(a);
+// { foo1 : 'foo1', foo2 : 'foo2', foo3 : 'foo3' }
+</code>
+</pre>
+        </div>
+        <div class="fairy-step ch3" step-index="300">
+            Thank you :)
+            <div><button id="replay">Replay</button></div>
+        </div>
     </div>
     <script>
         prettyPrint();
@@ -322,15 +613,19 @@ $.browser
                         $(".fairy-step.ch1").addClass('show');
                         $(".fairy-element.ch1").addClass('show');
                     } else if (index < 300) {
-                        $(".fairy-step.ch2").addClass('show');
+                        // $(".fairy-step.ch2").addClass('show');
+                        // $(".fairy-element.ch2").addClass('show');
+                    } else if (index < 400) {
+                        // $(".fairy-step.ch3").addClass('show');
+                        // $(".fairy-element.ch3").addClass('show');
                     };
                     $(".fairy-step.not-always-show").removeClass('show');
                 }
             }
         })('start');
-        // $("#replay").click(function(){
-        //     fairy('start');
-        // });
+        $("#replay").click(function(){
+            fairy('start');
+        });
     </script>
 </body>
 </html>
